@@ -9,6 +9,13 @@ def weight_n_height_converter():
         7 (cm'->'ft)  / 8 (ft'->'cm)
         : ''')
 
+def convertInputType(inputType):
+    if inputType % 2 == 0:
+        inputType -= 1
+    else:
+        inputType += 1
+    return str(inputType)
+
 conv_types = {"1":"kg", "2":"oz", "3":"kg", "4":"lbs", 
             "5":"cm", "6":"in", "7":"cm", "8":"ft"}
 
@@ -16,10 +23,11 @@ conv_type_input = ""
 while conv_type_input not in conv_types:
     weight_n_height_converter()
 
-weightHeight = float(input(f"Please enter your height/weight in {conv_types[conv_type_input]}: "))
+weightHeight = float(input(f"Please enter your measurement in {conv_types[conv_type_input]}: "))
 
 weightHeight_before = weightHeight
 conv_type_input_before = conv_type_input
+
 conv_kgoz_rate = 35.27396195
 conv_kglb_rate = 2.20462262185
 conv_cmin_rate = 2.54
@@ -27,30 +35,22 @@ conv_cmft_rate = 30.48
 
 if conv_type_input == "1":
     weightHeight = "{:.2f}".format(weightHeight * conv_kgoz_rate)
-    conv_type_input = "2"
 elif conv_type_input == "2":
     weightHeight = "{:.2f}".format(weightHeight / conv_kgoz_rate)
-    conv_type_input = "1"
 elif conv_type_input == "3":
     weightHeight = "{:.2f}".format(weightHeight * conv_kglb_rate)
-    conv_type_input = str(int(conv_type_input)+1)
 elif conv_type_input == "4":
     weightHeight = "{:.2f}".format(weightHeight / conv_kglb_rate)
-    conv_type_input = str(int(conv_type_input)-1)
 elif conv_type_input == "5":
     weightHeight = "{:.2f}".format(weightHeight / conv_cmin_rate)
-    conv_type_input = "6"
 elif conv_type_input == "6":
     weightHeight = "{:.2f}".format(weightHeight * conv_cmin_rate)
-    conv_type_input = "5"
 elif conv_type_input == "7":
     weightHeight = "{:.2f}".format(weightHeight / conv_cmft_rate)
-    conv_type_input = "8"
 elif conv_type_input == "8":
     weightHeight = "{:.2f}".format(weightHeight * conv_cmft_rate)
-    conv_type_input = "7"
 else:
     weightHeight = 0
 
-print(f"Result: {weightHeight_before} {conv_types[conv_type_input_before]} = {weightHeight} {conv_types[conv_type_input]}. ")
+print(f"Result: {weightHeight_before} {conv_types[conv_type_input_before]} = {weightHeight} {conv_types[convertInputType(int(conv_type_input))]}. ")
 
